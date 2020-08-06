@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6682976-db9c-42fa-a293-e91488d63dac" name="Default Changelist" comment="" />
+    <list default="true" id="c6682976-db9c-42fa-a293-e91488d63dac" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SCAT/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="Setup Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JupyterTrust" id="4e6c260f-9486-488c-9800-518b8d77daa2" />
   <component name="ProjectId" id="1fakKij44Br6LCbFG909lGBSdDB" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -55,27 +79,67 @@
       <updated>1596463528945</updated>
       <workItem from="1596463531307" duration="37000" />
       <workItem from="1596463570960" duration="61000" />
+      <workItem from="1596463634118" duration="1226000" />
+      <workItem from="1596683971820" duration="48000" />
+      <workItem from="1596705670908" duration="431000" />
+      <workItem from="1596719499007" duration="1195000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="593" y="365" width="254" height="264" key="Github.ShareDialog" timestamp="1596463630226">
+    <state x="320" y="127" key="#Deployment" timestamp="1596705860872">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="593" y="365" width="254" height="264" key="Github.ShareDialog/0.23.1440.877@0.23.1440.877" timestamp="1596463630226" />
+    <state x="320" y="127" key="#Deployment/0.23.1440.877@0.23.1440.877" timestamp="1596705860872" />
+    <state x="440" y="270" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1596723266408">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="440" y="270" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.877@0.23.1440.877" timestamp="1596723266408" />
+    <state x="593" y="365" width="254" height="264" key="Github.ShareDialog" timestamp="1596723884799">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="593" y="365" width="254" height="264" key="Github.ShareDialog/0.23.1440.877@0.23.1440.877" timestamp="1596723884799" />
+    <state x="542" y="173" key="Github.UntrackedFilesDialog" timestamp="1596463687332">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="542" y="173" key="Github.UntrackedFilesDialog/0.23.1440.877@0.23.1440.877" timestamp="1596463687332" />
+    <state width="1398" height="240" key="GridCell.Tab.0.bottom" timestamp="1596706351352">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state width="1398" height="240" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1596706351352" />
+    <state width="1398" height="240" key="GridCell.Tab.0.center" timestamp="1596706351351">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state width="1398" height="240" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1596706351351" />
+    <state width="1398" height="240" key="GridCell.Tab.0.left" timestamp="1596706351350">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state width="1398" height="240" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1596706351350" />
+    <state width="1398" height="240" key="GridCell.Tab.0.right" timestamp="1596706351352">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state width="1398" height="240" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1596706351352" />
+    <state x="518" y="382" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1596724321374">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="518" y="382" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.877@0.23.1440.877" timestamp="1596724321374" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>8</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/SCAT$main.coverage" NAME="main Coverage Results" MODIFIED="1596705866487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
