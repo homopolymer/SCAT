@@ -1,5 +1,4 @@
 import logging
-
 from typing import Union
 
 import torch
@@ -15,3 +14,15 @@ def set_seed(seed: int = 0):
     torch.backends.cudnn.benchmark = False
     np.random.seed(seed)
     random.seed(seed)
+
+'''
+class Config:
+    use_gpu: bool = True,
+    epoch: int = 50,
+    learning_rate: float = 1e-3,
+    mini_batch: int = 256,
+    num_workers: int = 20,
+    init: bool = False
+    if init:
+        set_seed(0)
+'''

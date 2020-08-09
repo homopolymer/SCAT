@@ -28,12 +28,12 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6682976-db9c-42fa-a293-e91488d63dac" name="Default Changelist" comment="add test.py">
-      <change afterPath="$PROJECT_DIR$/SCAT/trainer.py" afterDir="false" />
+    <list default="true" id="c6682976-db9c-42fa-a293-e91488d63dac" name="Default Changelist" comment="add trainer.py &amp; fix some bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SCAT/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SCAT/preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SCAT/triple.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/triple.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SCAT/_settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/_settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SCAT/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SCAT/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SCAT/trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/trainer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +232,7 @@
       <workItem from="1596956749463" duration="1931000" />
       <workItem from="1596958686389" duration="4600000" />
       <workItem from="1596963301823" duration="3110000" />
-      <workItem from="1596966422398" duration="3765000" />
+      <workItem from="1596966422398" duration="16890000" />
     </task>
     <task id="LOCAL-00001" summary="add LICENSE and setup.py">
       <created>1596724508718</created>
@@ -262,7 +262,14 @@
       <option name="project" value="LOCAL" />
       <updated>1596966558015</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add trainer.py &amp; fix some bug">
+      <created>1596970399343</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1596970399343</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,7 +291,8 @@
     <MESSAGE value="add LICENSE and setup.py" />
     <MESSAGE value="fix file name" />
     <MESSAGE value="add test.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="add test.py" />
+    <MESSAGE value="add trainer.py &amp; fix some bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="add trainer.py &amp; fix some bug" />
   </component>
   <component name="WindowStateProjectService">
     <state x="320" y="127" key="#Deployment" timestamp="1596902226031">
@@ -335,22 +343,22 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="542" y="173" key="Github.UntrackedFilesDialog/0.23.1440.877@0.23.1440.877" timestamp="1596463687332" />
-    <state width="1398" height="240" key="GridCell.Tab.0.bottom" timestamp="1596970320369">
+    <state width="699" height="240" key="GridCell.Tab.0.bottom" timestamp="1596998882752">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1596970320369" />
-    <state width="1398" height="240" key="GridCell.Tab.0.center" timestamp="1596970320368">
+    <state width="699" height="240" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1596998882752" />
+    <state width="699" height="240" key="GridCell.Tab.0.center" timestamp="1596998882750">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1596970320368" />
-    <state width="1398" height="240" key="GridCell.Tab.0.left" timestamp="1596970320367">
+    <state width="699" height="240" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1596998882750" />
+    <state width="699" height="240" key="GridCell.Tab.0.left" timestamp="1596998882749">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1596970320367" />
-    <state width="1398" height="240" key="GridCell.Tab.0.right" timestamp="1596970320368">
+    <state width="699" height="240" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1596998882749" />
+    <state width="699" height="240" key="GridCell.Tab.0.right" timestamp="1596998882751">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1596970320368" />
+    <state width="699" height="240" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1596998882751" />
     <state width="699" height="297" key="GridCell.Tab.1.bottom" timestamp="1596901914998">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -375,10 +383,10 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="221" y="100" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1596966225227" />
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1596966566512">
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1596970406176">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1596966566512" />
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1596970406176" />
     <state width="720" height="438" key="XDebugger.FullValuePopup" timestamp="1596958057239">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
