@@ -1,0 +1,5 @@
+torch~=1.6.0
+numpy~=1.19.1
+setuptools~=49.2.1.post20200802
+
+pandas~=1.1.0
