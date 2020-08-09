@@ -3,7 +3,7 @@ import numpy as np
 from collections import defaultdict
 
 
-def get_anchor_list(metadata: pd.Series):
+def get_encoder_anchor_list(metadata: pd.Series):
     annotation = metadata[['batch', "type"]]
     annotation_group = annotation.groupby(["batch", "type"]).groups
     annotation_group_keys = list(annotation_group.keys())
@@ -24,6 +24,27 @@ def get_anchor_list(metadata: pd.Series):
     return positive_anchor, negative_anchor
 
 
+def get_decoder_anchor_list(metadata: pd.Series):
+    annotation = metadata[['batch', "cluster"]]
+    annotation_group = annotation.groupby(["batch", "cluster"]).groups
+    annotation_group_keys = list(annotation_group.keys())
+
+    positive_anchor = defaultdict(list)
+    negative_anchor = defaultdict(list)
+
+    for batch, cluster in annotation_group_keys:
+        batch_mismatch = np.array(
+            annotation[annotation["batch"] != batch].index, dtype=np.int64)
+        batch_match = np.array(
+            annotation[annotation["batch"] == batch].index, dtype=np.int64)
+        cluster_match = np.array(
+            annotation[annotation["cluster"] == cluster].index, dtype=np.int64)
+        positive_anchor[(batch, cluster)].append(
+            np.intersect1d(batch_match, cluster_match))
+        negative_anchor[(batch, cluster)].append(batch_mismatch)
+    return positive_anchor, negative_anchor
+
+
 filedir = '/home/zhangjl/datasets/TripletTest/B/SCAT_simu/1'
 meta = pd.read_csv(filedir + '/fmeta.csv')
-a, b = get_anchor_list(meta)
+a, b = get_encoder_anchor_list(meta)
