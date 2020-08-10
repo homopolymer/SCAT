@@ -5,6 +5,7 @@ from .dataset import EncoderTrainingDataset, DecoderTrainingDataset
 from torch.utils.data import DataLoader
 import torch.optim as optimizer
 import itertools
+import time
 
 
 class TripletNetwork(nn.Module):
@@ -100,10 +101,18 @@ class SCAT(nn.Module):
             dropout_rate: float = 0.3,
             learning_rate: float = 1e-3,
             num_workers: int = 0,
-            batch_size: int = 256):
+            batch_size: int = 256,
+            use_gpu: bool = True):
         super().__init__()
         gene_num = len(data)
         one_hot_num = len(set(metadata['batch']))
+
+        self.use_device = torch.device("cpu")
+        if use_gpu:
+            if torch.cuda.is_available():
+                self.use_device = torch.device("cuda")
+            else:
+                use_gpu = False
 
         self.encoder_training_dataset = EncoderTrainingDataset(
             data=data, metadata=metadata, anchor_score=1.0)
@@ -114,13 +123,13 @@ class SCAT(nn.Module):
             shuffle=True,
             num_workers=num_workers,
             batch_size=batch_size,
-            pin_memory=True)
+            pin_memory=use_gpu)
         self.decoder_training_dataloader = DataLoader(
             self.decoder_training_dataset,
             shuffle=True,
             num_workers=num_workers,
             batch_size=batch_size,
-            pin_memory=True)
+            pin_memory=use_gpu)
 
         self.encoder = Encoder(
             gene_num=gene_num,
@@ -174,26 +183,44 @@ class SCAT(nn.Module):
             self.decoder_d.eval()
             self.decoder_r.eval()
 
-    def train(self, epochs: int = 50, use_gpu: bool = False):
-        if use_gpu:
-            if torch.cuda.is_available():
-                device = torch.device("cuda")
-            else:
-                device = torch.device("cpu")
-                # logging.warning()
+    def train(self, epochs: int = 50):
+        self.set_mode(mode=0)
         for epoch_i in range(epochs):
-            self.one_epoch_encoder(use_gpu=use_gpu)
-            break
+            epoch_start_time = time.time()
+            train_loss = self.one_epoch_encoder()
+            print(
+                '[%03d/%03d] %2.2f sec(s) Train Loss: %3.6f ' %
+                (epoch_i + 1, epochs, (time.time() - epoch_start_time), train_loss))
         for epoch_i in range(epochs):
             break
 
-    def one_epoch_encoder(self, use_gpu: bool = False):
-
-        for _, data in enumerate(self.encoder_training_dataset):
+    def one_epoch_encoder(self) -> float:
+        for _, data in enumerate(self.encoder_training_dataloader, 0):
             cell, positive_cell, negative_cell, confidence = data
-
+            train_loss = self.encoder_loss(
+                cell, positive_cell, negative_cell, confidence)
+            self.first_stage_optimizer.zero_grad()
+            train_loss.backward()
+            self.first_stage_optimizer.step()
+        return train_loss
 
     def one_epoch_decoder(self, use_gpu: bool = False):
         # for _, data in enumerate(self.encoder_training_dataset):
         triplet_loss = nn.MarginRankingLoss(margin=0.5)
         mse_loss = nn.MSELoss()
+
+    def encoder_loss(self, cell, positive_cell, negative_cell, confidence):
+        zero = torch.Tensor([0.0]).to(self.use_device)
+        cell, positive_cell, negative_cell, confidence = \
+            cell.to(self.use_device),\
+            positive_cell.to(self.use_device),\
+            negative_cell.to(self.use_device), \
+            confidence.to(self.use_device)
+        self.encoder_triplet_network = \
+            self.encoder_triplet_network.to(self.use_device)
+
+        dist_positive, dist_negative, _, _, _ = self.encoder_triplet_network(
+            cell, positive_cell, negative_cell)
+        train_loss = torch.mean(
+            torch.max(dist_positive - dist_negative + confidence, zero))
+        return train_loss

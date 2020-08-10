@@ -45,6 +45,4 @@ def get_decoder_anchor_list(metadata: pd.Series):
     return positive_anchor, negative_anchor
 
 
-filedir = '/home/zhangjl/datasets/TripletTest/B/SCAT_simu/1'
-meta = pd.read_csv(filedir + '/fmeta.csv')
-a, b = get_encoder_anchor_list(meta)
+
