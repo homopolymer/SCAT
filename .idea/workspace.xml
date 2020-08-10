@@ -28,13 +28,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6682976-db9c-42fa-a293-e91488d63dac" name="Default Changelist" comment="fix decoder">
-      <change afterPath="$PROJECT_DIR$/examples/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/metadata.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SCAT/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SCAT/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/test.py" afterDir="false" />
+    <list default="true" id="c6682976-db9c-42fa-a293-e91488d63dac" name="Default Changelist" comment="complete supervised mode!">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +230,7 @@
       <workItem from="1597045216793" duration="8581000" />
       <workItem from="1597069149473" duration="1470000" />
       <workItem from="1597070660425" duration="1202000" />
-      <workItem from="1597071960458" duration="1195000" />
+      <workItem from="1597071960458" duration="1624000" />
     </task>
     <task id="LOCAL-00001" summary="add LICENSE and setup.py">
       <created>1596724508718</created>
@@ -299,7 +295,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597070700573</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="complete supervised mode!">
+      <created>1597073312545</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1597073312545</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -326,7 +329,8 @@
     <MESSAGE value="add SCAT &amp; define a training process" />
     <MESSAGE value="fix SCAT.train()" />
     <MESSAGE value="fix decoder" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix decoder" />
+    <MESSAGE value="complete supervised mode!" />
+    <option name="LAST_COMMIT_MESSAGE" value="complete supervised mode!" />
   </component>
   <component name="WindowStateProjectService">
     <state x="320" y="127" key="#Deployment" timestamp="1596902226031">
@@ -421,10 +425,10 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="221" y="100" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1597041414431" />
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1597070740911">
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1597073316134">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1597070740911" />
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1597073316134" />
     <state width="720" height="438" key="XDebugger.FullValuePopup" timestamp="1596958057239">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
