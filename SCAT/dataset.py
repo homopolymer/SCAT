@@ -122,8 +122,7 @@ class TestingDataset(Dataset):
         self.cell_num = cell_num
 
     def __getitem__(self, item):
-        cell = self.data[item]
-        return cell, item
+        return self.data[item]
 
     def __len__(self):
         return self.cell_num

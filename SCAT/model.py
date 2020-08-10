@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import pandas as pd
-from .dataset import EncoderTrainingDataset, DecoderTrainingDataset
+from .dataset import EncoderTrainingDataset, DecoderTrainingDataset, TestingDataset
 from torch.utils.data import DataLoader
 import torch.optim as optimizer
 import itertools
@@ -145,6 +145,8 @@ class SCAT(nn.Module):
             one_hot_num=self.one_hot_num,
             dropout_rate=dropout_rate).to(self.use_device)
 
+        self.set_device(self.use_device)
+
         self.encoder_triplet_network = TripletNetwork(subnet=self.encoder)
         self.decoder_d_triplet_network = TripletNetwork(subnet=self.decoder_d)
         self.decoder_r_triplet_network = TripletNetwork(subnet=self.decoder_r)
@@ -183,6 +185,12 @@ class SCAT(nn.Module):
             self.encoder.eval()
             self.decoder_d.eval()
             self.decoder_r.eval()
+
+    def set_device(self, use_device: torch.device = "cpu"):
+        self.use_device = use_device
+        self.encoder = self.encoder.to(use_device)
+        self.decoder_r = self.decoder_r.to(use_device)
+        self.decoder_d = self.decoder_d.to(use_device)
 
     def train(self, epochs: int = 50):
         self.set_mode(mode=0)
@@ -309,3 +317,35 @@ class SCAT(nn.Module):
              mse_loss(positive_recon, ori_positive_cell) +
              mse_loss(negative_recon, ori_negative_cell)) / 3
         return train_loss
+
+
+def evaluation(
+        model: SCAT,
+        data: pd.Series,
+        metadata: pd.Series,
+        num_workers: int = 0,
+        batch_size: int = 256,
+        use_gpu: bool = False):
+    model.set_mode(2)
+    device = torch.device("cpu")
+    if use_gpu:
+        if torch.cuda.is_available():
+            device = torch.device("cuda")
+        else:
+            use_gpu = False
+    model.set_device(device)
+
+    testing_dataset = TestingDataset(data=data, metadata=metadata)
+    testing_dataloader = DataLoader(
+        testing_dataset,
+        shuffle=False,
+        num_workers=num_workers,
+        batch_size=batch_size,
+        pin_memory=use_gpu)
+
+    recon = torch.Tensor(0).to(device)
+    for _, cell in enumerate(testing_dataloader, 0):
+        cell = cell.to(device)
+        output = model(cell)
+        recon = torch.cat([recon, output], 0)
+    return recon.cpu().detach().numpy()

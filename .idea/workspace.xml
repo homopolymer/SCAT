@@ -28,7 +28,14 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6682976-db9c-42fa-a293-e91488d63dac" name="Default Changelist" comment="fix decoder" />
+    <list default="true" id="c6682976-db9c-42fa-a293-e91488d63dac" name="Default Changelist" comment="fix decoder">
+      <change afterPath="$PROJECT_DIR$/examples/data.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/metadata.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SCAT/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SCAT/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/test.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,6 +63,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
@@ -146,9 +154,6 @@
       <module name="SCAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -228,6 +233,8 @@
       <workItem from="1596966422398" duration="26971000" />
       <workItem from="1597045216793" duration="8581000" />
       <workItem from="1597069149473" duration="1470000" />
+      <workItem from="1597070660425" duration="1202000" />
+      <workItem from="1597071960458" duration="1195000" />
     </task>
     <task id="LOCAL-00001" summary="add LICENSE and setup.py">
       <created>1596724508718</created>
@@ -285,7 +292,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597070343306</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fix decoder">
+      <created>1597070700573</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1597070700573</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -304,6 +318,7 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="add LICENSE and setup.py" />
     <MESSAGE value="fix file name" />
     <MESSAGE value="add test.py" />
@@ -354,6 +369,10 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="100" y="123" width="1240" height="677" key="DirDiffDialog/0.23.1440.877@0.23.1440.877" timestamp="1596900733082" />
+    <state x="508" y="223" key="FileChooserDialogImpl" timestamp="1597070846969">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="508" y="223" key="FileChooserDialogImpl/0.23.1440.877@0.23.1440.877" timestamp="1597070846969" />
     <state x="593" y="365" width="254" height="264" key="Github.ShareDialog" timestamp="1596723884799">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -362,22 +381,22 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="542" y="173" key="Github.UntrackedFilesDialog/0.23.1440.877@0.23.1440.877" timestamp="1596463687332" />
-    <state width="699" height="240" key="GridCell.Tab.0.bottom" timestamp="1597070657387">
+    <state width="1398" height="240" key="GridCell.Tab.0.bottom" timestamp="1597073152722">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="699" height="240" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1597070657387" />
-    <state width="699" height="240" key="GridCell.Tab.0.center" timestamp="1597070657387">
+    <state width="1398" height="240" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1597073152722" />
+    <state width="1398" height="240" key="GridCell.Tab.0.center" timestamp="1597073152720">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="699" height="240" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1597070657387" />
-    <state width="699" height="240" key="GridCell.Tab.0.left" timestamp="1597070657387">
+    <state width="1398" height="240" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1597073152720" />
+    <state width="1398" height="240" key="GridCell.Tab.0.left" timestamp="1597073152720">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="699" height="240" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1597070657387" />
-    <state width="699" height="240" key="GridCell.Tab.0.right" timestamp="1597070657387">
+    <state width="1398" height="240" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1597073152720" />
+    <state width="1398" height="240" key="GridCell.Tab.0.right" timestamp="1597073152721">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="699" height="240" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1597070657387" />
+    <state width="1398" height="240" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1597073152721" />
     <state width="699" height="297" key="GridCell.Tab.1.bottom" timestamp="1596901914998">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -402,10 +421,10 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="221" y="100" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1597041414431" />
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1597070641997">
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1597070740911">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1597070641997" />
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1597070740911" />
     <state width="720" height="438" key="XDebugger.FullValuePopup" timestamp="1596958057239">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -418,14 +437,18 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="518" y="382" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.877@0.23.1440.877" timestamp="1596964710793" />
-    <state x="418" y="50" width="604" height="822" key="find.popup" timestamp="1596955334432">
+    <state x="418" y="50" width="604" height="822" key="find.popup" timestamp="1597070850349">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="418" y="50" width="604" height="822" key="find.popup/0.23.1440.877@0.23.1440.877" timestamp="1596955334432" />
+    <state x="418" y="50" width="604" height="822" key="find.popup/0.23.1440.877@0.23.1440.877" timestamp="1597070850349" />
     <state x="610" y="198" key="ftp.server.browser" timestamp="1596902223013">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="610" y="198" key="ftp.server.browser/0.23.1440.877@0.23.1440.877" timestamp="1596902223013" />
+    <state x="506" y="357" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1597070761755">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="506" y="357" key="git4idea.remote.GitConfigureRemotesDialog/0.23.1440.877@0.23.1440.877" timestamp="1597070761755" />
     <state x="547" y="254" key="refactoring.ChangeSignatureDialog" timestamp="1597069571518">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
