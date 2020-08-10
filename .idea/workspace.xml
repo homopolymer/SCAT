@@ -28,11 +28,12 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6682976-db9c-42fa-a293-e91488d63dac" name="Default Changelist" comment="add SCAT &amp; define a training process">
+    <list default="true" id="c6682976-db9c-42fa-a293-e91488d63dac" name="Default Changelist" comment="fix SCAT.train()">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SCAT/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SCAT/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SCAT/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SCAT/triple.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/triple.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SCAT/trainer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/example.ipynb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,11 +53,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="JupyterTrust" id="4e6c260f-9486-488c-9800-518b8d77daa2">
-    <option name="files">
-      <option value="examples/example.ipynb" />
-    </option>
-  </component>
+  <component name="JupyterTrust" id="4e6c260f-9486-488c-9800-518b8d77daa2" />
   <component name="ProjectId" id="1fakKij44Br6LCbFG909lGBSdDB" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -74,7 +71,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.notebooks.jupyter.connections.configuration.JupyterServerConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.customizations" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myUseExistingConsole" value="true" />
@@ -232,7 +229,9 @@
       <workItem from="1596956749463" duration="1931000" />
       <workItem from="1596958686389" duration="4600000" />
       <workItem from="1596963301823" duration="3110000" />
-      <workItem from="1596966422398" duration="24503000" />
+      <workItem from="1596966422398" duration="26971000" />
+      <workItem from="1597045216793" duration="8581000" />
+      <workItem from="1597069149473" duration="1075000" />
     </task>
     <task id="LOCAL-00001" summary="add LICENSE and setup.py">
       <created>1596724508718</created>
@@ -276,7 +275,14 @@
       <option name="project" value="LOCAL" />
       <updated>1596999382323</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fix SCAT.train()">
+      <created>1597041481909</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1597041481909</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -300,7 +306,8 @@
     <MESSAGE value="add test.py" />
     <MESSAGE value="add trainer.py &amp; fix some bug" />
     <MESSAGE value="add SCAT &amp; define a training process" />
-    <option name="LAST_COMMIT_MESSAGE" value="add SCAT &amp; define a training process" />
+    <MESSAGE value="fix SCAT.train()" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix SCAT.train()" />
   </component>
   <component name="WindowStateProjectService">
     <state x="320" y="127" key="#Deployment" timestamp="1596902226031">
@@ -351,22 +358,22 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="542" y="173" key="Github.UntrackedFilesDialog/0.23.1440.877@0.23.1440.877" timestamp="1596463687332" />
-    <state width="1398" height="240" key="GridCell.Tab.0.bottom" timestamp="1597040894344">
+    <state width="699" height="240" key="GridCell.Tab.0.bottom" timestamp="1597070143123">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1597040894344" />
-    <state width="1398" height="240" key="GridCell.Tab.0.center" timestamp="1597040894343">
+    <state width="699" height="240" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1597070143123" />
+    <state width="699" height="240" key="GridCell.Tab.0.center" timestamp="1597070143122">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1597040894343" />
-    <state width="1398" height="240" key="GridCell.Tab.0.left" timestamp="1597040894342">
+    <state width="699" height="240" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1597070143122" />
+    <state width="699" height="240" key="GridCell.Tab.0.left" timestamp="1597070143121">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1597040894342" />
-    <state width="1398" height="240" key="GridCell.Tab.0.right" timestamp="1597040894343">
+    <state width="699" height="240" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1597070143121" />
+    <state width="699" height="240" key="GridCell.Tab.0.right" timestamp="1597070143122">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1597040894343" />
+    <state width="699" height="240" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1597070143122" />
     <state width="699" height="297" key="GridCell.Tab.1.bottom" timestamp="1596901914998">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -387,14 +394,14 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="308" y="211" key="IDE.errors.dialog/0.23.1440.877@0.23.1440.877" timestamp="1596772638314" />
-    <state x="221" y="100" key="SettingsEditor" timestamp="1596966225227">
+    <state x="221" y="100" key="SettingsEditor" timestamp="1597041414431">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="221" y="100" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1596966225227" />
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1596999388902">
+    <state x="221" y="100" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1597041414431" />
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1597041484871">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1596999388902" />
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1597041484871" />
     <state width="720" height="438" key="XDebugger.FullValuePopup" timestamp="1596958057239">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -415,6 +422,10 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="610" y="198" key="ftp.server.browser/0.23.1440.877@0.23.1440.877" timestamp="1596902223013" />
+    <state x="547" y="254" key="refactoring.ChangeSignatureDialog" timestamp="1597069571518">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="547" y="254" key="refactoring.ChangeSignatureDialog/0.23.1440.877@0.23.1440.877" timestamp="1597069571518" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/SCAT$test.coverage" NAME="test Coverage Results" MODIFIED="1596966345763" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />

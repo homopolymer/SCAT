@@ -68,6 +68,7 @@ class DecoderTrainingDataset(Dataset):
 
         positive_anchor, negative_anchor = get_decoder_anchor_list(
             dataset.metadata)
+        label_code = pd.Categorical(dataset.metadata['batch']).codes
 
         self.data = dataset.data
         self.metadata = dataset.metadata
@@ -75,6 +76,7 @@ class DecoderTrainingDataset(Dataset):
         self.cell_num = dataset.cell_num
         self.positive_anchor = positive_anchor
         self.negative_anchor = negative_anchor
+        self.label_code = label_code
 
     def __getitem__(self, item):
         item_batch = self.metadata["batch"][item]

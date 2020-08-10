@@ -83,7 +83,7 @@ class DecoderD(nn.Module):
             nn.ReLU(inplace=True),
             nn.Dropout(dropout_rate)
         )
-        self.layer2 = nn.Sequential(
+        self.layer3 = nn.Sequential(
             nn.Linear(1000, gene_num)
         )
 
@@ -105,7 +105,7 @@ class SCAT(nn.Module):
             use_gpu: bool = True):
         super().__init__()
         gene_num = len(data)
-        one_hot_num = len(set(metadata['batch']))
+        self.one_hot_num = len(set(metadata['batch']))
 
         self.use_device = torch.device("cpu")
         if use_gpu:
@@ -134,19 +134,20 @@ class SCAT(nn.Module):
         self.encoder = Encoder(
             gene_num=gene_num,
             latent_size=latent_size,
-            dropout_rate=dropout_rate)
+            dropout_rate=dropout_rate).to(self.use_device)
         self.decoder_r = DecoderR(
             gene_num=gene_num,
             latent_size=latent_size,
-            dropout_rate=dropout_rate)
+            dropout_rate=dropout_rate).to(self.use_device)
         self.decoder_d = DecoderD(
             gene_num=gene_num,
             latent_size=latent_size,
-            one_hot_num=one_hot_num,
-            dropout_rate=dropout_rate)
+            one_hot_num=self.one_hot_num,
+            dropout_rate=dropout_rate).to(self.use_device)
 
         self.encoder_triplet_network = TripletNetwork(subnet=self.encoder)
-        self.decoder_triplet_network = TripletNetwork(subnet=self.decoder_d)
+        self.decoder_d_triplet_network = TripletNetwork(subnet=self.decoder_d)
+        self.decoder_r_triplet_network = TripletNetwork(subnet=self.decoder_r)
 
         self.first_stage_optimizer = optimizer.Adam(
             itertools.chain(
@@ -185,14 +186,37 @@ class SCAT(nn.Module):
 
     def train(self, epochs: int = 50):
         self.set_mode(mode=0)
+        epoch_start_time = time.time()
         for epoch_i in range(epochs):
-            epoch_start_time = time.time()
             train_loss = self.one_epoch_encoder()
+            progress = ('#' * int(float(epoch_i) /
+                                  epochs * 30 + 1)).ljust(30)
             print(
-                '[%03d/%03d] %2.2f sec(s) Train Loss: %3.6f ' %
-                (epoch_i + 1, epochs, (time.time() - epoch_start_time), train_loss))
+                'Stage 1: [ %03d / %03d ] %6.2f sec(s) | %s | Train Loss: %3.6f' %
+                (epoch_i + 1,
+                 epochs,
+                 (time.time() - epoch_start_time),
+                    progress,
+                    train_loss),
+                end='\r', flush=True)
+        print("\n")
+
+        self.set_mode(mode=1)
+        epoch_start_time = time.time()
         for epoch_i in range(epochs):
-            break
+            train_loss = self.one_epoch_decoder()
+            progress = ('#' * int(float(epoch_i) /
+                                  epochs * 30 + 1)).ljust(30)
+            print(
+                'Stage 2: [ %03d / %03d ] %6.2f sec(s) | %s | Train Loss: %3.6f' %
+                (epoch_i + 1,
+                 epochs,
+                 (time.time() - epoch_start_time),
+                    progress,
+                    train_loss),
+                end='\r', flush=True)
+        print("\nTraining finish!\n")
+        self.set_mode(mode=2)
 
     def one_epoch_encoder(self) -> float:
         for _, data in enumerate(self.encoder_training_dataloader, 0):
@@ -202,25 +226,86 @@ class SCAT(nn.Module):
             self.first_stage_optimizer.zero_grad()
             train_loss.backward()
             self.first_stage_optimizer.step()
-        return train_loss
+        return train_loss.detach()
 
-    def one_epoch_decoder(self, use_gpu: bool = False):
-        # for _, data in enumerate(self.encoder_training_dataset):
-        triplet_loss = nn.MarginRankingLoss(margin=0.5)
-        mse_loss = nn.MSELoss()
+    def one_epoch_decoder(self) -> float:
+        one_hot = torch.eye(self.one_hot_num).requires_grad_(True)
+        labels = self.decoder_training_dataset.label_code
+        for _, data in enumerate(self.decoder_training_dataloader, 0):
+            cell, positive_cell, negative_cell, idx, positive_idx, negative_idx = data
+            train_loss = self.decoder_loss(cell,
+                                           positive_cell,
+                                           negative_cell,
+                                           one_hot[labels[idx], ],
+                                           one_hot[labels[positive_idx], ],
+                                           one_hot[labels[negative_idx], ])
+            self.second_stage_optimizer.zero_grad()
+            train_loss.backward()
+            self.second_stage_optimizer.step()
+        return train_loss.detach()
 
     def encoder_loss(self, cell, positive_cell, negative_cell, confidence):
         zero = torch.Tensor([0.0]).to(self.use_device)
         cell, positive_cell, negative_cell, confidence = \
-            cell.to(self.use_device),\
-            positive_cell.to(self.use_device),\
+            cell.to(self.use_device), \
+            positive_cell.to(self.use_device), \
             negative_cell.to(self.use_device), \
             confidence.to(self.use_device)
-        self.encoder_triplet_network = \
-            self.encoder_triplet_network.to(self.use_device)
 
-        dist_positive, dist_negative, _, _, _ = self.encoder_triplet_network(
-            cell, positive_cell, negative_cell)
+        dist_positive, dist_negative, _, _, _ = \
+            self.encoder_triplet_network(cell, positive_cell, negative_cell)
         train_loss = torch.mean(
             torch.max(dist_positive - dist_negative + confidence, zero))
+        return train_loss
+
+    def decoder_loss(
+            self,
+            ori_cell,
+            ori_positive_cell,
+            ori_negative_cell,
+            one_hot_cell,
+            one_hot_positive_cell,
+            one_hot_negative_cell):
+        ori_cell, ori_positive_cell, ori_negative_cell = \
+            ori_cell.to(self.use_device), \
+            ori_positive_cell.to(self.use_device), \
+            ori_negative_cell.to(self.use_device)
+        one_hot_cell, one_hot_positive_cell, one_hot_negative_cell = \
+            one_hot_cell.to(self.use_device), \
+            one_hot_positive_cell.to(self.use_device), \
+            one_hot_negative_cell.to(self.use_device)
+        target = torch.FloatTensor(
+            len(ori_cell)).fill_(-1).requires_grad_(True).to(self.use_device)
+
+        _, _, encode_ori_cell, encode_ori_positive_cell, encode_ori_negative_cell = \
+            self.encoder_triplet_network(ori_cell,
+                                         ori_positive_cell,
+                                         ori_negative_cell)
+
+        one_hot_cell = torch.cat(
+            (encode_ori_cell, one_hot_cell), 1)
+        one_hot_positive_cell = torch.cat(
+            (encode_ori_positive_cell, one_hot_positive_cell), 1)
+        one_hot_negative_cell = torch.cat(
+            (encode_ori_negative_cell, one_hot_negative_cell), 1)
+
+        triplet_loss = nn.MarginRankingLoss(margin=0.5)
+        mse_loss = nn.MSELoss()
+
+        _, _, recon_r_cell, recon_r_positive_cell, recon_r_negative_cell = \
+            self.decoder_r_triplet_network(encode_ori_cell,
+                                           encode_ori_positive_cell,
+                                           encode_ori_negative_cell)
+        dist_positive, dist_negative, recon_d_cell, recon_d_positive_cell, recon_d_negative_cell = \
+            self.decoder_d_triplet_network(one_hot_cell,
+                                           one_hot_positive_cell,
+                                           one_hot_negative_cell)
+        recon, positive_recon, negative_recon = recon_r_cell + recon_d_cell, \
+            recon_r_positive_cell + recon_d_positive_cell, \
+            recon_r_negative_cell + recon_d_negative_cell
+
+        train_loss = triplet_loss(dist_positive, dist_negative, target) + \
+            (mse_loss(recon, ori_cell) +
+             mse_loss(positive_recon, ori_positive_cell) +
+             mse_loss(negative_recon, ori_negative_cell)) / 3
         return train_loss
