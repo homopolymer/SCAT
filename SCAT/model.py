@@ -26,7 +26,11 @@ class TripletNetwork(nn.Module):
 
 
 class Encoder(nn.Module):
-    def __init__(self, gene_num, latent_size=10, dropout_rate=0.3):
+    def __init__(
+            self,
+            gene_num: int,
+            latent_size: int = 10,
+            dropout_rate: float = 0.0):
         super().__init__()
         self.layer1 = nn.Sequential(
             nn.Linear(gene_num, 1000),
@@ -50,7 +54,7 @@ class Encoder(nn.Module):
 
 
 class DecoderR(nn.Module):
-    def __init__(self, gene_num: int, latent_size: int = 10, dropout_rate=0.3):
+    def __init__(self, gene_num: int, latent_size: int = 10):
         super().__init__()
         self.layer1 = nn.Sequential(
             nn.Linear(latent_size, gene_num),
@@ -67,20 +71,15 @@ class DecoderD(nn.Module):
             self,
             gene_num: int,
             one_hot_num: int,
-            latent_size: int = 10,
-            dropout_rate: float = 0.3):
+            latent_size: int = 10):
         super().__init__()
         self.layer1 = nn.Sequential(
             nn.Linear(latent_size + one_hot_num, 200),
-            nn.LeakyReLU(0.1)
-            # nn.ReLU(inplace=True),
-            # nn.Dropout(dropout_rate)
+            nn.ReLU(inplace=True)
         )
         self.layer2 = nn.Sequential(
             nn.Linear(200, 1000),
-            nn.LeakyReLU(0.1)
-            # nn.ReLU(inplace=True),
-            # nn.Dropout(dropout_rate)
+            nn.ReLU(inplace=True)
         )
         self.layer3 = nn.Sequential(
             nn.Linear(1000, gene_num)
@@ -97,8 +96,8 @@ class SCAT(nn.Module):
             data: pd.Series,
             metadata: pd.Series,
             latent_size: int = 10,
-            dropout_rate: float = 0.3,
-            learning_rate: float = 1e-3,
+            dropout_rate: float = 0.0,
+            learning_rate: float = 5e-4,
             num_workers: int = 0,
             batch_size: int = 256,
             use_gpu: bool = True):
@@ -136,13 +135,11 @@ class SCAT(nn.Module):
             dropout_rate=dropout_rate)
         self.decoder_r = DecoderR(
             gene_num=gene_num,
-            latent_size=latent_size,
-            dropout_rate=dropout_rate)
+            latent_size=latent_size)
         self.decoder_d = DecoderD(
             gene_num=gene_num,
             latent_size=latent_size,
-            one_hot_num=self.one_hot_num,
-            dropout_rate=dropout_rate)
+            one_hot_num=self.one_hot_num)
 
         self.set_device(self.use_device)
 

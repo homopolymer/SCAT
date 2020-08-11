@@ -28,14 +28,14 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6682976-db9c-42fa-a293-e91488d63dac" name="Default Changelist" comment="add some guidance to README.md">
-      <change beforePath="$PROJECT_DIR$/.idea/SCAT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SCAT.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="c6682976-db9c-42fa-a293-e91488d63dac" name="Default Changelist" comment="fix some bugs">
+      <change afterPath="$PROJECT_DIR$/examples/meta.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SCAT/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SCAT/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SCAT/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SCAT/triple.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCAT/triple.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/metadata.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +74,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myUseExistingConsole" value="true" />
@@ -263,7 +263,7 @@
       <workItem from="1597071960458" duration="4484000" />
       <workItem from="1597077255660" duration="9984000" />
       <workItem from="1597119411930" duration="1483000" />
-      <workItem from="1597121040552" duration="3014000" />
+      <workItem from="1597121040552" duration="6760000" />
     </task>
     <task id="LOCAL-00001" summary="add LICENSE and setup.py">
       <created>1596724508718</created>
@@ -342,7 +342,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597073644985</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="fix some bugs">
+      <created>1597124290725</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1597124290725</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -371,7 +378,8 @@
     <MESSAGE value="fix decoder" />
     <MESSAGE value="complete supervised mode!" />
     <MESSAGE value="add some guidance to README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="add some guidance to README.md" />
+    <MESSAGE value="fix some bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix some bugs" />
   </component>
   <component name="WindowStateProjectService">
     <state x="320" y="127" key="#Deployment" timestamp="1597078119951">
@@ -426,22 +434,22 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="542" y="173" key="Github.UntrackedFilesDialog/0.23.1440.877@0.23.1440.877" timestamp="1596463687332" />
-    <state width="1398" height="240" key="GridCell.Tab.0.bottom" timestamp="1597122970368">
+    <state width="1398" height="240" key="GridCell.Tab.0.bottom" timestamp="1597126812307">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1597122970368" />
-    <state width="1398" height="240" key="GridCell.Tab.0.center" timestamp="1597122970367">
+    <state width="1398" height="240" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1597126812307" />
+    <state width="1398" height="240" key="GridCell.Tab.0.center" timestamp="1597126812305">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1597122970367" />
-    <state width="1398" height="240" key="GridCell.Tab.0.left" timestamp="1597122970366">
+    <state width="1398" height="240" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1597126812305" />
+    <state width="1398" height="240" key="GridCell.Tab.0.left" timestamp="1597126812304">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1597122970366" />
-    <state width="1398" height="240" key="GridCell.Tab.0.right" timestamp="1597122970368">
+    <state width="1398" height="240" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1597126812304" />
+    <state width="1398" height="240" key="GridCell.Tab.0.right" timestamp="1597126812306">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1597122970368" />
+    <state width="1398" height="240" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1597126812306" />
     <state width="699" height="297" key="GridCell.Tab.1.bottom" timestamp="1596901914998">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -462,14 +470,14 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="308" y="211" key="IDE.errors.dialog/0.23.1440.877@0.23.1440.877" timestamp="1596772638314" />
-    <state x="221" y="100" width="1129" height="722" key="SettingsEditor" timestamp="1597078338440">
+    <state x="221" y="100" width="1129" height="722" key="SettingsEditor" timestamp="1597125112675">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="221" y="100" width="1129" height="722" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1597078338440" />
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1597073648951">
+    <state x="221" y="100" width="1129" height="722" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1597125112675" />
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1597125120899">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1597073648951" />
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1597125120899" />
     <state width="720" height="438" key="XDebugger.FullValuePopup" timestamp="1596958057239">
       <screen x="0" y="23" width="1440" height="877" />
     </state>

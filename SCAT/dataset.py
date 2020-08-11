@@ -3,7 +3,6 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 from .triple import get_encoder_anchor_list, get_decoder_anchor_list
-from sklearn.preprocessing import normalize
 
 
 class EncoderTrainingDataset(Dataset):
@@ -11,7 +10,8 @@ class EncoderTrainingDataset(Dataset):
             self,
             data: pd.Series,
             metadata: pd.Series,
-            resize_factor: float = 1000.0, anchor_score: float = 1.0):
+            resize_factor: float = 1000.0,
+            anchor_score: float = 0.5):
         gene_num = len(data)
         cell_num = len(metadata)
 
@@ -39,18 +39,10 @@ class EncoderTrainingDataset(Dataset):
         negative_anchor = self.negative_anchor[(item_batch, item_type)][0]
         positive_num = len(positive_anchor)
         negative_num = len(negative_anchor)
-        if positive_num > 0:
-            positive_item = positive_anchor[np.random.randint(positive_num)]
-            positive_quality = self.anchor_score
-        else:
-            positive_item = item
-            positive_quality = 0.0
-        if negative_num > 0:
-            negative_item = negative_anchor[np.random.randint(negative_num)]
-            negative_quality = self.anchor_score
-        else:
-            negative_item = item
-            negative_quality = 0.0
+        positive_quality = self.anchor_score
+        negative_quality = self.anchor_score
+        positive_item = positive_anchor[np.random.randint(positive_num)]
+        negative_item = negative_anchor[np.random.randint(negative_num)]
 
         cell = self.data[item]
         positive_cell = self.data[positive_item]
