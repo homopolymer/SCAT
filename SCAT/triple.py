@@ -18,8 +18,11 @@ def get_encoder_anchor_list(metadata: pd.Series):
             annotation[annotation['type'] == cell_type].index, dtype=np.int64)
         type_mismatch = np.array(
             annotation[annotation['type'] != cell_type].index, dtype=np.int64)
-        positive_anchor[(batch, cell_type)].append(
-            np.intersect1d(batch_mismatch, type_match))
+        positive_match = np.intersect1d(batch_mismatch, type_match)
+        if len(positive_match) > 0:
+            positive_anchor[(batch, cell_type)].append(positive_match)
+        else:
+            positive_anchor[(batch, cell_type)].append(type_match)
         negative_anchor[(batch, cell_type)].append(type_mismatch)
     return positive_anchor, negative_anchor
 
@@ -43,6 +46,3 @@ def get_decoder_anchor_list(metadata: pd.Series):
             np.intersect1d(batch_match, cluster_match))
         negative_anchor[(batch, cluster)].append(batch_mismatch)
     return positive_anchor, negative_anchor
-
-
-

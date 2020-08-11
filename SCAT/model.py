@@ -34,15 +34,17 @@ class Encoder(nn.Module):
             nn.Dropout(dropout_rate)
         )
         self.layer2 = nn.Sequential(
-            nn.Linear(1000, 100),
+            nn.Linear(1000, 200),
             nn.ReLU(inplace=True),
             nn.Dropout(dropout_rate)
         )
         self.layer3 = nn.Sequential(
-            nn.Linear(100, latent_size)
+            nn.Linear(200, latent_size)
         )
+        self.coefficient = torch.nn.Parameter(torch.ones(gene_num))
 
     def forward(self, network_input):
+        network_input = self.coefficient * network_input
         output = self.layer3(self.layer2(self.layer1(network_input)))
         return output
 
@@ -51,17 +53,12 @@ class DecoderR(nn.Module):
     def __init__(self, gene_num: int, latent_size: int = 10, dropout_rate=0.3):
         super().__init__()
         self.layer1 = nn.Sequential(
-            nn.Linear(latent_size, 100),
-            nn.ReLU(inplace=True),
-            nn.Dropout(dropout_rate)
-        )
-        self.layer2 = nn.Sequential(
-            nn.Linear(100, gene_num),
+            nn.Linear(latent_size, gene_num),
             nn.ReLU(inplace=True)
         )
 
     def forward(self, network_input):
-        output = self.layer2(self.layer1(network_input))
+        output = self.layer1(network_input)
         return output
 
 
@@ -74,14 +71,16 @@ class DecoderD(nn.Module):
             dropout_rate: float = 0.3):
         super().__init__()
         self.layer1 = nn.Sequential(
-            nn.Linear(latent_size + one_hot_num, 100),
-            nn.ReLU(inplace=True),
-            nn.Dropout(dropout_rate)
+            nn.Linear(latent_size + one_hot_num, 200),
+            nn.LeakyReLU(0.1)
+            # nn.ReLU(inplace=True),
+            # nn.Dropout(dropout_rate)
         )
         self.layer2 = nn.Sequential(
-            nn.Linear(100, 1000),
-            nn.ReLU(inplace=True),
-            nn.Dropout(dropout_rate)
+            nn.Linear(200, 1000),
+            nn.LeakyReLU(0.1)
+            # nn.ReLU(inplace=True),
+            # nn.Dropout(dropout_rate)
         )
         self.layer3 = nn.Sequential(
             nn.Linear(1000, gene_num)
@@ -134,16 +133,16 @@ class SCAT(nn.Module):
         self.encoder = Encoder(
             gene_num=gene_num,
             latent_size=latent_size,
-            dropout_rate=dropout_rate).to(self.use_device)
+            dropout_rate=dropout_rate)
         self.decoder_r = DecoderR(
             gene_num=gene_num,
             latent_size=latent_size,
-            dropout_rate=dropout_rate).to(self.use_device)
+            dropout_rate=dropout_rate)
         self.decoder_d = DecoderD(
             gene_num=gene_num,
             latent_size=latent_size,
             one_hot_num=self.one_hot_num,
-            dropout_rate=dropout_rate).to(self.use_device)
+            dropout_rate=dropout_rate)
 
         self.set_device(self.use_device)
 
@@ -152,11 +151,7 @@ class SCAT(nn.Module):
         self.decoder_r_triplet_network = TripletNetwork(subnet=self.decoder_r)
 
         self.first_stage_optimizer = optimizer.Adam(
-            itertools.chain(
-                self.encoder.parameters(),
-                self.decoder_d.parameters(),
-                self.decoder_r.parameters()),
-            lr=learning_rate)
+            self.encoder.parameters(), lr=learning_rate)
         self.second_stage_optimizer = optimizer.Adam(
             itertools.chain(
                 self.decoder_d.parameters(),
@@ -167,25 +162,6 @@ class SCAT(nn.Module):
         output = self.decoder_r(self.encoder(network_input))
         return output
 
-    def set_mode(self, mode: int = 0):
-        """
-        0: first training stage
-        1: second training stage
-        others: test stage
-        """
-        if mode == 0:
-            self.encoder.train()
-            self.decoder_d.train()
-            self.decoder_r.train()
-        elif mode == 1:
-            self.encoder.eval()
-            self.decoder_d.train()
-            self.decoder_r.train()
-        else:
-            self.encoder.eval()
-            self.decoder_d.eval()
-            self.decoder_r.eval()
-
     def set_device(self, use_device: torch.device = "cpu"):
         self.use_device = use_device
         self.encoder = self.encoder.to(use_device)
@@ -193,7 +169,6 @@ class SCAT(nn.Module):
         self.decoder_d = self.decoder_d.to(use_device)
 
     def train(self, epochs: int = 50):
-        self.set_mode(mode=0)
         epoch_start_time = time.time()
         for epoch_i in range(epochs):
             train_loss = self.one_epoch_encoder()
@@ -201,15 +176,10 @@ class SCAT(nn.Module):
                                   epochs * 30 + 1)).ljust(30)
             print(
                 'Stage 1: [ %03d / %03d ] %6.2f sec(s) | %s | Train Loss: %3.6f' %
-                (epoch_i + 1,
-                 epochs,
-                 (time.time() - epoch_start_time),
-                    progress,
-                    train_loss),
+                (epoch_i + 1, epochs, (time.time() - epoch_start_time), progress, train_loss),
                 end='\r', flush=True)
         print("\n")
 
-        self.set_mode(mode=1)
         epoch_start_time = time.time()
         for epoch_i in range(epochs):
             train_loss = self.one_epoch_decoder()
@@ -217,14 +187,9 @@ class SCAT(nn.Module):
                                   epochs * 30 + 1)).ljust(30)
             print(
                 'Stage 2: [ %03d / %03d ] %6.2f sec(s) | %s | Train Loss: %3.6f' %
-                (epoch_i + 1,
-                 epochs,
-                 (time.time() - epoch_start_time),
-                    progress,
-                    train_loss),
+                (epoch_i + 1, epochs, (time.time() - epoch_start_time), progress, train_loss),
                 end='\r', flush=True)
         print("\nTraining finish!\n")
-        self.set_mode(mode=2)
 
     def one_epoch_encoder(self) -> float:
         for _, data in enumerate(self.encoder_training_dataloader, 0):
@@ -326,7 +291,7 @@ def evaluation(
         num_workers: int = 0,
         batch_size: int = 256,
         use_gpu: bool = False):
-    model.set_mode(2)
+
     device = torch.device("cpu")
     if use_gpu:
         if torch.cuda.is_available():
